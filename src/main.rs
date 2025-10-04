@@ -3,6 +3,7 @@ mod app;
 mod db;
 mod logging;
 mod models;
+mod openapi_tags;
 mod schema;
 
 use dotenvy::dotenv;

@@ -1,5 +1,6 @@
 use chrono::DateTime;
 use diesel::prelude::*;
+use serde::Deserialize;
 use uuid::Uuid;
 
 #[derive(Queryable, Selectable)]
@@ -9,15 +10,16 @@ pub struct User {
     pub id: Uuid,
     pub email: String,
     pub username: String,
+    pub password: String,
     pub created_at: DateTime<chrono::Utc>,
     pub updated_at: DateTime<chrono::Utc>,
     pub is_active: bool,
 }
 
-#[derive(Insertable)]
+#[derive(Insertable, Deserialize, poem_openapi::Object)]
 #[diesel(table_name = crate::schema::users)]
-pub struct NewUser<'a> {
-    pub email: &'a str,
-    pub username: &'a str,
-    pub is_active: bool,
+pub struct NewUser {
+    pub email: String,
+    pub username: String,
+    pub password: String,
 }
